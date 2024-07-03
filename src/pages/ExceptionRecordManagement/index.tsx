@@ -74,6 +74,7 @@ export default () => {
         columns={columns}
         request={async (params ) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
+          //@ts-ignore
           accessList =  await getPageExceptionRecordUsingPost(params).then((res: { data: { total: React.SetStateAction<number>; records: any; }; })=>{
             console.log(res)
             setTotal(res.data.total)
@@ -101,6 +102,7 @@ export default () => {
           editableKeys,
           onSave: async (row, dom) => {
             await waitTime(500)
+            //@ts-ignore
             await updateExceptionRecordUsingPost(dom).then((res: { data: any; })=>{
               if (res.data){
                 message.success("修改成功")
@@ -110,8 +112,11 @@ export default () => {
           onChange: setEditableRowKeys,
           onDelete: async (row)=>{
             await waitTime(500)
+
             await deleteExceptionRecordUsingPost({
+              //@ts-ignore
               id:row
+              //@ts-ignore
             }).then((res: { data: any; })=>{
               if(res.data){
                 message.success("删除成功")
